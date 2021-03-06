@@ -2,6 +2,7 @@ import axios from "axios";
 
 const DOMAIN = "http://localhost:9000";
 axios.defaults.withCredentials = true;
+
 export const request = (method: any, url: any, data: any) => {
   return axios({
     method,
