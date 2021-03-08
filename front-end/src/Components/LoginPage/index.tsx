@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
-import { LoginData } from "../../utils/dataBundle";
 import style from "../../App.module.scss";
 
 interface IProps {}
 
 const LoginPage: React.FC<IProps> = () => {
-  const [input, setInput] = useState({
-    userId: "",
-    password: "",
-  });
+  const [UserId, setUserId] = useState("");
+  const [Password, setPassword] = useState("");
 
-  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
+  const onUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserId(e.currentTarget.value);
+  };
+
+  const onPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.currentTarget.value);
   };
 
   const onSubmitHandler = (e: React.FormEvent) => {
@@ -26,16 +24,14 @@ const LoginPage: React.FC<IProps> = () => {
     <form className={style.login_page} onClick={onSubmitHandler}>
       <div className={style.login_wrapper}>
         <div className={style.login_box}>
-          {LoginData.map((elem) => (
-            <div className={style.input_wrapper}>
-              <label>{elem.label}</label>
-              <input
-                type={elem.type}
-                value={elem.value}
-                onChange={inputHandler}
-              />
-            </div>
-          ))}
+          <div className={style.input_wrapper}>
+            <label>User ID</label>
+            <input type="text" value="userId" onChange={onUserId} />
+          </div>
+          <div className={style.input_wrapper}>
+            <label>Password</label>
+            <input type="password" value="password" onChange={onPassword} />
+          </div>
           <div className={style.button_wrapper}>
             <button className={style.login_btn} type="submit">
               로그인

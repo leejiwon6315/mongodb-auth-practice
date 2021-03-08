@@ -3,8 +3,10 @@ import { request } from "../utils/axios";
 
 const USER_URL = "/api/user";
 
+type Data = {};
+
 export const registerUser = (dataToSubmit: any) => {
-  const data = request("post", USER_URL + "/register", dataToSubmit);
+  const data: Data = request("post", USER_URL + "/register", dataToSubmit);
 
   return {
     type: REGISTER_USER,
