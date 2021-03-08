@@ -23,7 +23,6 @@ ReactDOM.render(
           (window as any).__REDUX_DEVTOOLS_EXTENSION__()
       )}
     >
-      );
       <App />
     </Provider>
   </React.StrictMode>,

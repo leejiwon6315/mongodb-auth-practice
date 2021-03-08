@@ -1,15 +1,31 @@
-import { REGISTER_USER } from "./types";
+import { REGISTER_USER, LOGIN_USER, LOGOUT_USER } from "./types";
 import { request } from "../utils/axios";
 
 const USER_URL = "/api/user";
 
-type Data = {};
-
 export const registerUser = (dataToSubmit: any) => {
-  const data: Data = request("post", USER_URL + "/register", dataToSubmit);
+  const data = request("post", USER_URL + "/register", dataToSubmit);
 
   return {
     type: REGISTER_USER,
+    payload: data,
+  };
+};
+
+export const loginUser = (dataToSubmit: any) => {
+  const data = request("post", USER_URL + "/login", dataToSubmit);
+
+  return {
+    type: LOGIN_USER,
+    payload: data,
+  };
+};
+
+export const logoutUser = () => {
+  const data = request("post", USER_URL + "/logout", null);
+
+  return {
+    type: LOGOUT_USER,
     payload: data,
   };
 };
