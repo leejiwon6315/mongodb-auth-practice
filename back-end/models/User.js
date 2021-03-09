@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const UserSchema = mongoose.Schema({
   name: { type: String, maxlength: 50 },
-  userid: { type: String, maxlength: 50, trim: true, unique: 1 },
+  userId: { type: String, maxlength: 50, unique: 1 },
   password: { type: String, maxlength: 50 },
   role: {
     type: Number,
