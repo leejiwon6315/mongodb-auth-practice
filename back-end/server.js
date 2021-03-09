@@ -8,8 +8,7 @@ const { User } = require("./models/User");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const dbAddress =
-  "mongodb+srv://leejiwon6315:0106315@cluster0.5qrlw.mongodb.net/meemo?retryWrites=true&w=majority";
+const dbAddress = "";
 
 mongoose
   .connect(dbAddress, {
