@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 const express = require("express");
-const app = express();
-const port = 5000;
+const cookieParser = require("cookie-parser");
 const { User } = require("./models/User");
 const config = require("./config/key");
-const cookieParser = require("cookie-parser");
+
+const app = express();
+const port = 5000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -19,7 +20,7 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
-app.post("/register", (req, res) => {
+app.post("/api/user/register", (req, res) => {
   const user = new User(req.body);
 
   user.save((err, userInfo) => {
@@ -30,7 +31,7 @@ app.post("/register", (req, res) => {
   });
 });
 
-app.post("/login", (req, res) => {
+app.post("/api/user/login", (req, res) => {
   User.findOne({ userId: req.body.userId }, (err, user) => {
     if (!user) {
       return res.json({
@@ -58,6 +59,20 @@ app.post("/login", (req, res) => {
   });
 });
 
-app.listen(port, () => {
+app.get("/api/user/auth", auth, (req, res) => {
+  //미들웨어를 거친 후 실행됨
+  res.status(200).json({
+    //유저 정보를 json 형태로 전달
+    _id: req.user._id,
+    isAdmin: req.user.role === 0 ? false : true,
+    isAuth: true,
+    userId: req.user.userId,
+    name: req.user.name,
+    role: req.user.role,
+    image: req.user.image,
+  });
+});
+
+app.app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });

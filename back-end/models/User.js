@@ -10,6 +10,7 @@ const userSchema = mongoose.Schema({
   role: {
     type: Number,
     default: 0,
+    // 0이 아니면 admin
   },
   image: String,
   token: {
@@ -21,6 +22,7 @@ const userSchema = mongoose.Schema({
 });
 
 userSchema.pre("save", function (next) {
+  //패스워드 암호화
   const user = this;
 
   if (user.isModified("password")) {
@@ -40,6 +42,7 @@ userSchema.pre("save", function (next) {
 });
 
 userSchema.methods.comparePassword = function (plainPassword, callback) {
+  //패스워드 비교
   bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
     if (err) return callback(err);
     callback(null, isMatch);
@@ -47,6 +50,7 @@ userSchema.methods.comparePassword = function (plainPassword, callback) {
 };
 
 userSchema.methods.generateToken = function (callback) {
+  //토큰생성
   const user = this;
   const token = jwt.sign(user._id.toHexString(), "secretToken");
 
@@ -54,6 +58,19 @@ userSchema.methods.generateToken = function (callback) {
   user.save(function (err, user) {
     if (err) return callback(err);
     callback(null, user);
+  });
+};
+
+userSchema.statics.findByToken = function (token, callback) {
+  //토큰 복호화
+  const user = this;
+
+  jwt.verify(token, "secretToken", function (err, decoded) {
+    //decoded = user id
+    user.findOne({ _id: decoded, token: token }, function (err, user) {
+      if (err) return callback(err);
+      callback(null, user);
+    });
   });
 };
 
