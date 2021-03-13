@@ -3,6 +3,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const { User } = require("./models/User");
 const config = require("./config/key");
+const { auth } = require("./middleware/auth");
 
 const app = express();
 const port = 5000;
@@ -73,6 +74,15 @@ app.get("/api/user/auth", auth, (req, res) => {
   });
 });
 
-app.app.listen(port, () => {
+app.get("/api/user/logout", auth, (res, req) => {
+  User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).send({
+      success: true,
+    });
+  });
+});
+
+app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
