@@ -1,8 +1,5 @@
-import { REGISTER_USER, LOGIN_USER, LOGOUT_USER, AUTH_USER } from "./types";
-import { request } from "../utils/axios";
+import { REGISTER_USER, LOGIN_USER, AUTH_USER } from "./types";
 import axios from "axios";
-
-const USER_URL = "/api/users";
 
 export const registerUser = (dataToSubmit: any) => {
   const request = axios
@@ -26,20 +23,13 @@ export const loginUser = (dataToSubmit: any) => {
   };
 };
 
-export const logoutUser = () => {
-  const data = request("post", USER_URL + "/logout", null);
-
-  return {
-    type: LOGOUT_USER,
-    payload: data,
-  };
-};
-
-export const authUser = () => {
-  const data = request("post", USER_URL + "/auth", null);
+export const authUser = (dataToSubmit?: any) => {
+  const request = axios
+    .get("http://localhost:5000/api/users/auth", dataToSubmit)
+    .then((res) => res.data);
 
   return {
     type: AUTH_USER,
-    payload: data,
+    payload: request,
   };
 };

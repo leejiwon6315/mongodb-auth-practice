@@ -1,23 +1,17 @@
-import React from "react";
 import { useHistory, withRouter } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { logoutUser } from "../../_actions/userAction";
+import axios from "axios";
 
 function LandingPage() {
-  const dispatch: any = useDispatch();
   const history = useHistory();
 
   const onClickHandler = () => {
-    dispatch(logoutUser())
-      .then((res: any) => {
-        console.log(res);
-        if (res.payload.sucess) {
-          history.push("/login");
-        } else {
-          alert("logout failed");
-        }
-      })
-      .catch((err: any) => console.log(err));
+    axios.get("/api/users/logout").then((res) => {
+      if (res.data.success) {
+        history.push("/login");
+      } else {
+        alert("failed");
+      }
+    });
   };
 
   return (

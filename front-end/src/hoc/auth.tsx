@@ -12,18 +12,18 @@ function Auth(Component: any, option: null | false | true, adminRoute?: null) {
       dispatch(authUser()).then((res: any) => {
         console.log(res);
 
-        if (!res.payload.isAuth) {
-          if (option) {
-            history.push("/login");
-          }
-        } else {
-          if (adminRoute && res.payload.isAdmin) {
-          } else {
-            if (!option) {
-              history.push("/");
-            }
-          }
+        // if (!res.payload.isAuth) {
+        if (option) {
+          history.push("/login");
         }
+        // } else {
+        // if (adminRoute && res.payload.isAdmin) {
+        // } else {
+        //   if (!option) {
+        //     history.push("/");
+        //   }
+        // }
+        // }
       });
     }, []);
     return <Component />;
