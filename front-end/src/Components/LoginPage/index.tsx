@@ -31,7 +31,7 @@ function LoginPage() {
         console.log(res);
 
         if (res.payload.loginSuccess) {
-          history.push("/");
+          history.push("/schedule");
         } else {
           alert(res.payload.message);
         }
@@ -42,7 +42,7 @@ function LoginPage() {
   };
 
   return (
-    <form className={style.login_page} onClick={onSubmitHandler}>
+    <form className={style.login_page} onSubmit={onSubmitHandler}>
       <div className={style.login_wrapper}>
         <div className={style.login_box}>
           <div className={style.input_wrapper}>
