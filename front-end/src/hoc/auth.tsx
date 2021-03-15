@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { authUser } from "../_actions/userAction";
 
-const Auth = (Component: any, option: any, adminRoute = null) => {
+function Auth(Component: any, option: null | false | true, adminRoute?: null) {
   const AuthCheck = () => {
     const dispatch: any = useDispatch();
     const history = useHistory();
@@ -30,6 +30,6 @@ const Auth = (Component: any, option: any, adminRoute = null) => {
   };
 
   return AuthCheck;
-};
+}
 
 export default Auth;

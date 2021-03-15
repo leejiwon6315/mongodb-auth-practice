@@ -3,9 +3,7 @@ import { useHistory, withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../_actions/userAction";
 
-interface IProps {}
-
-const LandingPage: React.FC<IProps> = () => {
+function LandingPage() {
   const dispatch: any = useDispatch();
   const history = useHistory();
 
@@ -28,6 +26,6 @@ const LandingPage: React.FC<IProps> = () => {
       <button onClick={onClickHandler}>logout</button>
     </div>
   );
-};
+}
 
 export default withRouter(LandingPage);

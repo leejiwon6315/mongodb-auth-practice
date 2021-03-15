@@ -4,9 +4,7 @@ import { useDispatch } from "react-redux";
 import { registerUser } from "../../_actions/userAction";
 import style from "../../App.module.scss";
 
-interface IProps {}
-
-const RegisterPage: React.FC<IProps> = () => {
+function RegisterPage() {
   const [UserId, setUserId] = useState("");
   const [Name, setName] = useState("");
   const [Password, setPassword] = useState("");
@@ -41,10 +39,12 @@ const RegisterPage: React.FC<IProps> = () => {
         password: Password,
       };
 
-      dispatch(registerUser(body)).then((res: any) => {
-        alert("done");
-        history.push("/login");
-      });
+      dispatch(registerUser(body))
+        .then((res: any) => {
+          alert("done");
+          history.push("/login");
+        })
+        .catch((err: any) => console.log(err));
     } else alert("nope");
   };
 
@@ -82,6 +82,6 @@ const RegisterPage: React.FC<IProps> = () => {
       </div>
     </form>
   );
-};
+}
 
 export default withRouter(RegisterPage);

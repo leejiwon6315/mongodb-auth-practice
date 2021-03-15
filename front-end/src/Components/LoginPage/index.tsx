@@ -4,9 +4,7 @@ import { withRouter, useHistory } from "react-router-dom";
 import style from "../../App.module.scss";
 import { loginUser } from "../../_actions/userAction";
 
-interface IProps {}
-
-const LoginPage: React.FC<IProps> = () => {
+function LoginPage() {
   const [UserId, setUserId] = useState("");
   const [Password, setPassword] = useState("");
   const history = useHistory();
@@ -27,9 +25,11 @@ const LoginPage: React.FC<IProps> = () => {
       userId: UserId,
       password: Password,
     };
+
     dispatch(loginUser(body))
       .then((res: any) => {
         console.log(res);
+
         if (res.payload.loginSuccess) {
           history.push("/");
         } else {
@@ -66,6 +66,6 @@ const LoginPage: React.FC<IProps> = () => {
       </div>
     </form>
   );
-};
+}
 
 export default withRouter(LoginPage);

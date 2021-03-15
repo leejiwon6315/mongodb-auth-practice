@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const DOMAIN = "http://localhost:9000";
+const DOMAIN = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
 export const request = (method: any, url: any, data: any) => {

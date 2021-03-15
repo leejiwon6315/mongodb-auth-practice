@@ -21,7 +21,7 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
-app.post("/api/user/register", (req, res) => {
+app.post("/api/users/register/", (req, res) => {
   const user = new User(req.body);
 
   user.save((err, userInfo) => {
@@ -32,7 +32,7 @@ app.post("/api/user/register", (req, res) => {
   });
 });
 
-app.post("/api/user/login", (req, res) => {
+app.post("/api/users/login/", (req, res) => {
   User.findOne({ userId: req.body.userId }, (err, user) => {
     if (!user) {
       return res.json({
@@ -60,7 +60,7 @@ app.post("/api/user/login", (req, res) => {
   });
 });
 
-app.get("/api/user/auth", auth, (req, res) => {
+app.get("/api/users/auth/", auth, (req, res) => {
   //미들웨어를 거친 후 실행됨
   res.status(200).json({
     //유저 정보를 json 형태로 전달
@@ -74,7 +74,7 @@ app.get("/api/user/auth", auth, (req, res) => {
   });
 });
 
-app.get("/api/user/logout", auth, (res, req) => {
+app.get("/api/users/logout/", auth, (res, req) => {
   User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).send({
